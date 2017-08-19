@@ -1,5 +1,8 @@
 <?php
 
+//デフォルトのソート項目名
+$sort = "point";
+
 $list = file_get_contents("form.csv");
 $list = mb_convert_encoding($list, "UTF-8", "sjis");
 $list = explode("\n",$list);
@@ -22,9 +25,8 @@ foreach($list as $l){
             $i++;
         }
     }
-    //デフォルトのソート
     $amounts = array();
-    foreach ($result as $v) $amounts[] = $v['point'];
+    foreach ($result as $v) $amounts[] = $v[$sort];
     array_multisort($amounts, SORT_DESC, SORT_NUMERIC, $result);
 
     $num++;
